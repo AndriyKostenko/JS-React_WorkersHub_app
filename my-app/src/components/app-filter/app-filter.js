@@ -17,7 +17,7 @@ const AppFilter = () => {
             <button 
                 className="btn btn-light"
                 type="button">
-                    Wages &gt 1000$
+                    Wages &#62; 1000$
             </button>
         </div>
     )
