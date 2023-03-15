@@ -14,9 +14,9 @@ class App extends Component {
         super(props);
         this.state = {
             data: [
-                {name: 'Jhon C.', salary: 700, increase: false, id: 1},
-                {name: 'Bob C.', salary: 800, increase: true, id: 2},
-                {name: 'Mark C.', salary: 950, increase: true, id: 3},
+                {name: 'Jhon C.', salary: 700, increase: false, rise: true, id: 1},
+                {name: 'Bob C.', salary: 800, increase: true, rise: false, id: 2},
+                {name: 'Mark C.', salary: 950, increase: true, rise: false, id: 3},
             ]
         }
         this.maxId = 4 // just simply continue generation of dynamic id for 
@@ -24,12 +24,13 @@ class App extends Component {
 
     }
 
-    addItem = (name, salary) => {
 
+    addItem = (name, salary) => {
         const newItem = {
             name: name,
             salary: salary,
             increase: false,
+            rise: false,
             id: this.maxId++
         }
 
@@ -41,6 +42,7 @@ class App extends Component {
         
     }
 
+
     deleteItem = (id) => {
         this.setState(({data}) => {
 
@@ -49,6 +51,36 @@ class App extends Component {
             }
         })
     }
+
+
+    onToggleIncrease = (id) => {
+        // this.setState(({data}) => {
+        //     const index = data.findIndex(elem => elem.id === id);
+
+        //     const old = data[index];
+        //     const newItem = {...old, increase: !old.increase};
+        //     const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)];
+            
+        //     return {
+        //         data: newArr
+        //     }
+
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, increase: !item.increase}
+                }
+                return item;
+            })
+        }))
+
+    }
+
+
+    onToggleRise = (id) => {
+        console.log(`rise this ${id}`)
+    }
+    
 
     render() {
         return (
@@ -61,7 +93,9 @@ class App extends Component {
                 </div>
 
                 <EmployeesList data={this.state.data}
-                                onDelete={this.deleteItem}/>
+                                onDelete={this.deleteItem}
+                                onToggleIncrease={this.onToggleIncrease}
+                                onToggleRise={this.onToggleRise}/>
                 <EmployeesAddForm onAdd={this.addItem}/> 
             </div>
         )
