@@ -27,13 +27,13 @@ class App extends Component {
 
     addItem = (name, salary) => {
         const newItem = {
-            name: name,
-            salary: salary,
+            name,
+            salary,
             increase: false,
             rise: false,
             id: this.maxId++
         }
-
+        // setState - asynchronous
         this.setState(({data}) => {
             return {
                 data: [...data, newItem]
@@ -53,39 +53,26 @@ class App extends Component {
     }
 
 
-    onToggleIncrease = (id) => {
-        // this.setState(({data}) => {
-        //     const index = data.findIndex(elem => elem.id === id);
-
-        //     const old = data[index];
-        //     const newItem = {...old, increase: !old.increase};
-        //     const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)];
-            
-        //     return {
-        //         data: newArr
-        //     }
-
+    onToggleProp = (id, prop) => {
         this.setState(({data}) => ({
             data: data.map(item => {
                 if (item.id === id) {
-                    return {...item, increase: !item.increase}
+                    return {...item, [prop]: !item[prop]}
                 }
                 return item;
             })
         }))
-
     }
 
-
-    onToggleRise = (id) => {
-        console.log(`rise this ${id}`)
-    }
-    
 
     render() {
+        const employees = this.state.data.length;
+        const increased = this.state.data.filter(item => item.increase).length;
+
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo employees={employees}
+                         increased={increased}/>
     
                 <div className="search-panel">
                     <SearchPanel/>
@@ -94,12 +81,11 @@ class App extends Component {
 
                 <EmployeesList data={this.state.data}
                                 onDelete={this.deleteItem}
-                                onToggleIncrease={this.onToggleIncrease}
-                                onToggleRise={this.onToggleRise}/>
+                                onToggleProp={this.onToggleProp} />
                 <EmployeesAddForm onAdd={this.addItem}/> 
             </div>
         )
-    } // data, onDelete, onAdd will be sent to props to further classes
+    } // data, onDelete, onAdd...will be sent to props to further classes
 
 
     
