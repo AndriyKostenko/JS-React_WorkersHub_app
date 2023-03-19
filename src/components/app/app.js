@@ -83,7 +83,7 @@ class App extends Component {
         const {data, term} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.searchEmp(data, term);
+        const visibleData = this.searchEmp(data, term); // now is showing new data if input included
 
         return (
             <div className="app">
