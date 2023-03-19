@@ -18,7 +18,8 @@ class App extends Component {
                 {name: 'Bob C.', salary: 800, increase: true, rise: false, id: 2},
                 {name: 'Mark C.', salary: 950, increase: true, rise: false, id: 3},
             ], 
-            term: ''
+            term: '',
+            filter: ''
         }
         this.maxId = 4 // just simply continue generation of dynamic id for 
                        //new users
@@ -64,26 +65,43 @@ class App extends Component {
         }))
     }
 
+
     searchEmp = (items, term) => {
         if (term.length === 0) {
             return items;
         }
-
         return items.filter(item => {
-            return item.name.indexOf(term) > -1
+                return item.name.indexOf(term) > -1;
         })
     }
+
+
+    filterPost = (items, filter) => {
+        switch(filter) {
+            case 'For promotion':
+                return items.filter(item => item.rise);
+            case 'Wages > 1000$':
+                return items.filter(item => item.salary > 1000);
+            default:
+                return items
+    }}
+
+    
 
     onUpdateSearch = (term) => {
         this.setState({term}); // receiving term from another method in search-panel.js
     }
 
+    onFilterSelect = (filter) => {
+        this.setState({filter});
+    }
+
 
     render() {
-        const {data, term} = this.state;
+        const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.searchEmp(data, term); // now is showing new data if input included
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter); // now is showing new data if input included
 
         return (
             <div className="app">
@@ -92,7 +110,8 @@ class App extends Component {
     
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-                    <AppFilter/>
+                    <AppFilter filter={filter}
+                                onFilterSelect={this.onFilterSelect}/>
                 </div>
 
                 <EmployeesList data={visibleData}
