@@ -17,7 +17,8 @@ class App extends Component {
                 {name: 'Jhon C.', salary: 700, increase: false, rise: true, id: 1},
                 {name: 'Bob C.', salary: 800, increase: true, rise: false, id: 2},
                 {name: 'Mark C.', salary: 950, increase: true, rise: false, id: 3},
-            ]
+            ], 
+            term: ''
         }
         this.maxId = 4 // just simply continue generation of dynamic id for 
                        //new users
@@ -45,7 +46,6 @@ class App extends Component {
 
     deleteItem = (id) => {
         this.setState(({data}) => {
-
             return {
                 data: data.filter(item => item.id !== id)
             }
@@ -64,10 +64,26 @@ class App extends Component {
         }))
     }
 
+    searchEmp = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term}); // receiving term from another method in search-panel.js
+    }
+
 
     render() {
+        const {data, term} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.searchEmp(data, term);
 
         return (
             <div className="app">
@@ -75,11 +91,11 @@ class App extends Component {
                          increased={increased}/>
     
                 <div className="search-panel">
-                    <SearchPanel/>
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter/>
                 </div>
 
-                <EmployeesList data={this.state.data}
+                <EmployeesList data={visibleData}
                                 onDelete={this.deleteItem}
                                 onToggleProp={this.onToggleProp} />
                 <EmployeesAddForm onAdd={this.addItem}/> 
