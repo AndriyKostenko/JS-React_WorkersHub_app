@@ -2,10 +2,16 @@
 
  JS-React_WorkersHub_app
 
- Available Scripts
 
-In the project directory, you can run:
 
+On your PC, you have to intall:
+
+ `node-js `
+ `npm (package manager)`
+  (Note: You can check what npm version you have by running in your terminal npm -v)
+
+In the project directory, you have to run the project:
+ 
  `npm start`
 
 Runs the app in the development mode.\

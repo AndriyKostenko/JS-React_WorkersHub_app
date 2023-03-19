@@ -2,8 +2,8 @@ import { Component } from 'react';
 
 import FormErrors from '../form-errors/form-errors';
 
-//import './employees-add-form.css'
-import './employee-add-form.scss';
+import './employees-add-form.css'
+//import './employee-add-form.scss';
 
 
 class EmployeesAddForm extends Component {
