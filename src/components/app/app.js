@@ -13,17 +13,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                {name: 'Jhon C.', salary: 700, increase: false, rise: true, id: 1},
-                {name: 'Bob C.', salary: 800, increase: true, rise: false, id: 2},
-                {name: 'Mark C.', salary: 950, increase: true, rise: false, id: 3},
-            ], 
-            term: '',
-            filter: ''
-        }
+        data: [
+            {name: 'Jhon C.', salary: 700, increase: false, rise: true, id: 1},
+            {name: 'Bob C.', salary: 800, increase: true, rise: false, id: 2},
+            {name: 'Mark C.', salary: 950, increase: true, rise: false, id: 3},
+        ], 
+        term: '',
+        filter: ''}
         this.maxId = 4 // just simply continue generation of dynamic id for 
                        //new users
-
     }
 
 
@@ -121,9 +119,7 @@ class App extends Component {
             </div>
         )
     } // data, onDelete, onAdd...will be sent to props to further classes
-
-
-    
 }
+
 
 export default App;
